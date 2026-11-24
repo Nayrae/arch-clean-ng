@@ -106,7 +106,12 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# fzf key bindings + completion (Arch's fzf package; falls back to a ~/.fzf git install)
+if [ -f ~/.fzf.zsh ]; then
+    source ~/.fzf.zsh
+elif command -v fzf >/dev/null 2>&1; then
+    source <(fzf --zsh)
+fi
 
 # shellcheck shell=bash
 

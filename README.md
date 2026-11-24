@@ -1,6 +1,6 @@
 # Kali-Clean-NG
 
-Updated version of [kali-clean](https://github.com/xct/kali-clean): an i3 desktop for Kali with alacritty, tmux (oh-my-tmux), rofi (Tokyo Night), compton, zsh (oh-my-zsh + fzf + zoxide) and Neovim (LazyVim).
+Updated version of [kali-clean](https://github.com/xct/kali-clean): an i3 desktop for **Arch Linux** with alacritty, tmux (oh-my-tmux), rofi (Tokyo Night), picom, zsh (oh-my-zsh + fzf + zoxide) and Neovim (LazyVim).
 
 ## Installation
 
@@ -12,7 +12,7 @@ Clone the repo and run the installer as your normal user (not root):
 
 Any files it replaces are backed up to `~/.dotfiles-backup/<timestamp>/`.
 
-When it finishes, reboot and pick **i3** on the login screen. Open a terminal (`super+Return`), run `lxappearance` and choose the Arc-Dark theme with Papirus icons.
+When it finishes, reboot and pick **i3** on the login screen. If no display manager is enabled, the installer writes `~/.xinitrc` instead, so log in on the TTY and run `startx`. Open a terminal (`super+Return`), run `lxappearance` and choose the Arc-Dark theme with Papirus icons. Arc is only in the AUR: the installer uses `paru` or `yay` if one is installed, otherwise install `arc-gtk-theme` yourself.
 
 ## What's included
 
@@ -21,11 +21,20 @@ When it finishes, reboot and pick **i3** on the login screen. Open a terminal (`
 | `.config/i3/` | i3 config, i3blocks bar (with CPU graph), VMware clipboard fix |
 | `.config/alacritty/alacritty.toml` | Alacritty config (TOML format) |
 | `.config/rofi/` | `config.rasi` + `tokyo.rasi` theme |
-| `.config/compton/compton.conf` | Compositor (shadows, transparency) |
+| `.config/picom/picom.conf` | picom compositor (shadows, transparency) |
 | `.config/tmux/tmux.conf.local` | oh-my-tmux local config with vi copy-mode |
 | `.config/nvim/` | LazyVim starter config |
 | `.config/flameshot/flameshot.ini` | Flameshot (`super+p`) |
 | `.zshrc`, `.fehbg`, `.wallpaper/` | Shell config and wallpaper |
+
+## Arch Linux port
+
+- Packages come from `pacman -Syu --needed`, with no partial upgrades.
+- compton was replaced by picom (`.config/picom/picom.conf`, picom >= 12 `rules` syntax), since Arch only ships picom.
+- Nerd Fonts come from `ttf-iosevka-nerd` and `ttf-roboto-mono-nerd`, and fzf comes from the `fzf` package (`source <(fzf --zsh)`).
+- i3blocks-contrib scripts go into `~/.config/i3/blocks/` instead of `/usr/share`, so pacman-managed paths stay untouched.
+- The bandwidth block uses the default-route interface instead of a hard-coded `eth0`.
+- open-vm-tools is installed only inside VMware, and the clipboard fix and `Virtual-1` xrandr mode do nothing elsewhere.
 
 ## Changes from kali-clean
 

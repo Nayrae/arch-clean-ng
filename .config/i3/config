@@ -94,7 +94,7 @@ bindsym $mod+Shift+0 move container to workspace 10
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r exec "killall -USR1 termite"; restart;
+bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
@@ -148,10 +148,10 @@ default_border normal
 # feh - Wallpaper Setter
 exec_always --no-startup-id sh ~/.fehbg
 
-# compton - Compositing Manager for Shadows and Opacity
-exec_always --no-startup-id compton -b --config ~/.config/compton/compton.conf
+# picom - Compositing Manager for Shadows and Opacity
+exec_always --no-startup-id sh -c 'pkill -x picom; picom -b --config ~/.config/picom/picom.conf'
 
-# VM Clipboard Fix
+# VM Clipboard Fix (only does something inside VMware)
 exec_always --no-startup-id ~/.config/i3/clipboard_fix.sh
 
 # Resize Bindings
@@ -166,5 +166,5 @@ bindsym $mod+P exec flameshot gui
 # Keyboard layout
 exec_always --no-startup-id setxkbmap it
 
-# Refresh rate
-exec_always --no-startup-id "sh -c 'xrandr --newmode 2358x1280_186 ; xrandr --addmode Virtual-1 2358x1280_186; xrandr --output Virtual-1 --mode 2358x1280_186'"
+# Refresh rate (VM-specific: only applies if a Virtual-1 output exists)
+exec_always --no-startup-id "sh -c 'xrandr --query | grep -q \"^Virtual-1 \" || exit 0; xrandr --newmode 2358x1280_186 ; xrandr --addmode Virtual-1 2358x1280_186; xrandr --output Virtual-1 --mode 2358x1280_186'"
