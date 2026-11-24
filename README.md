@@ -1,4 +1,4 @@
-# Kali-Clean-NG
+# Arch-Clean-NG
 
 Updated version of [kali-clean](https://github.com/xct/kali-clean): an i3 desktop for **Arch Linux** with alacritty, tmux (oh-my-tmux), rofi (Tokyo Night), picom, zsh (oh-my-zsh + fzf + zoxide) and Neovim (LazyVim).
 
